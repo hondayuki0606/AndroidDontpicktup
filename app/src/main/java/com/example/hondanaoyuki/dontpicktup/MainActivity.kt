@@ -3,7 +3,6 @@ package com.example.hondanaoyuki.dontpicktup
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,10 +12,10 @@ class MainActivity : AppCompatActivity() {
         toggle.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 val intent = Intent(this, AlarmService::class.java)
-                startService(intent)
+                this.startService(intent)
             } else {
                 val intent = Intent(this, AlarmService::class.java)
-                stopService(intent)
+                this.stopService(intent)
             }
         }
     }

@@ -15,8 +15,14 @@ class AlarmService : Service(), SensorEventListener {
     private val threshold: Float = 15f
     private var mp: MediaPlayer? = null
     private var oValue: Array<Float> = arrayOf(0f, 0f, 0f)
+    private val TAG = "AlarmService"
+
+    override fun onCreate(){
+        android.util.Log.d(TAG, "onCreate")
+    }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        android.util.Log.d(TAG, "onStartCommand")
         val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         sensorManager.registerListener(this ,accelerometer ,SensorManager.SENSOR_DELAY_NORMAL)
@@ -24,15 +30,18 @@ class AlarmService : Service(), SensorEventListener {
     }
 
     override fun onDestroy() {
+        android.util.Log.d(TAG, "onDestroy")
         super.onDestroy()
         val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensorManager.unregisterListener(this)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+        android.util.Log.d(TAG, "onAccuracyChanged")
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
+        android.util.Log.d(TAG, "onSensorChanged")
         if (event == null) return
         if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
             val speed = Math.abs(event.values[0] - oValue[0]) +
